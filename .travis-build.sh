@@ -13,4 +13,4 @@ export CHECKERFRAMEWORK=$ROOT/checker-framework
 ## Obtain plume-lib
 (cd $ROOT && git clone https://github.com/mernst/plume-lib.git)
 
-make -C $ROOT/plume-lib/java
+make -C $ROOT/plume-lib/java check-types
