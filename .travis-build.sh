@@ -13,4 +13,5 @@ export CHECKERFRAMEWORK=$ROOT/checker-framework
 ## Obtain plume-lib
 (cd $ROOT && git clone https://github.com/mernst/plume-lib.git) || (cd $ROOT && git clone https://github.com/mernst/plume-lib.git)
 
-make -C $ROOT/plume-lib/java check-types
+# -Afilenames is to prevent the job from timing out if it goes 10 minutes without output
+make -C $ROOT/plume-lib/java JAVACHECK_EXTRA_ARGS=-Afilenames check-types
