@@ -1,6 +1,6 @@
 language: java
 
-script: travis_wait ./.travis-build.sh
+script: travis_wait 50 ./.travis-build.sh
 
 sudo: false
 
