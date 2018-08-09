@@ -33,6 +33,7 @@ fi
 # This also builds annotation-tools and jsr308-langtools
 (cd $CHECKERFRAMEWORK && ./.travis-build-without-test.sh downloadjdk)
 echo "CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
+ls -al $CHECKERFRAMEWORK
 
 echo "PACKAGES=$PACKAGES"
 for PACKAGE in "${PACKAGES[@]}"; do
