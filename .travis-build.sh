@@ -23,6 +23,7 @@ fi
 set -e
 
 ## Build the Checker Framework
+echo "CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
 export CHECKERFRAMEWORK=$ROOT/checker-framework
 if [ -d $CHECKERFRAMEWORK ] ; then
   git -C $CHECKERFRAMEWORK pull
