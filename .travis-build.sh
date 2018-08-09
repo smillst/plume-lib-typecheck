@@ -1,9 +1,13 @@
 #!/bin/bash
+
+echo "Entering plume-lib-typecheck/.travis-build.sh"
+
 ROOT=$TRAVIS_BUILD_DIR/..
 echo "ROOT=$ROOT"
 
 # Optional argument $1 is the group.
-export GROUPARG=$1
+GROUPARG=$1
+echo "GROUPARG=$GROUPARG"
 # These are all the Java projects at https://github.com/plume-lib
 if [[ "${GROUPARG}" == "bcel-util" ]]; then PACKAGES=(${GROUPARG}); fi
 if [[ "${GROUPARG}" == "bibtex-clean" ]]; then PACKAGES=(${GROUPARG}); fi
@@ -19,6 +23,7 @@ if [ -z ${PACKAGES+x} ]; then
   echo "Bad group argument '${GROUPARG}'"
   exit 1
 fi
+echo "PACKAGES=$PACKAGES"
 
 # Fail the whole script if any command fails
 set -e
@@ -29,7 +34,7 @@ export CHECKERFRAMEWORK=${CHECKERFRAMEWORK:-$ROOT/checker-framework}
 if [ -d $CHECKERFRAMEWORK ] ; then
   git -C $CHECKERFRAMEWORK pull
 else
-  (cd $ROOT && git clone https://github.com/typetools/checker-framework.git) || (cd $ROOT && git clone https://github.com/typetools/checker-framework.git)
+  (cd $CHECKERFRAMEWORK/.. && git clone https://github.com/typetools/checker-framework.git) || (cd $ROOT && git clone https://github.com/typetools/checker-framework.git)
 fi
 # This also builds annotation-tools and jsr308-langtools
 (cd $CHECKERFRAMEWORK && ./.travis-build-without-test.sh downloadjdk)
@@ -44,3 +49,5 @@ for PACKAGE in "${PACKAGES[@]}"; do
   echo "About to call ./gradlew --console=plain -PcfLocal assemble"
   (cd $ROOT/${PACKAGE} && CHECKERFRAMEWORK=$CHECKERFRAMEWORK ./gradlew --console=plain -PcfLocal assemble)
 done
+
+echo "Exiting plume-lib-typecheck/.travis-build.sh"
