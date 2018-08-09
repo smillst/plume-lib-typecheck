@@ -1,6 +1,6 @@
 language: java
 
-script: travis_wait 50 ./.travis-build.sh
+script: ./.travis-build.sh $GROUP
 
 sudo: false
 
@@ -13,11 +13,19 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+env:
+  matrix:
+    - GROUP=bcel-util
+    - GROUP=bibtex-clean
+    - GROUP=html-pretty-print
+    - GROUP=icalavailable
+    - GROUP=lookup
+    - GROUP=multi-version-control
+    - GROUP=options
+    - GROUP=plume-util
+    - GROUP=require-javadoc
+
 jdk:
   - oraclejdk8
 #  - oraclejdk7
 #  - openjdk7
-
-notifications:
-  email:
-    - checker-framework-dev@googlegroups.com 
