@@ -1,9 +1,7 @@
 #!/bin/bash
 
 echo "Entering plume-lib-typecheck/.travis-build.sh"
-
-ROOT=$TRAVIS_BUILD_DIR/..
-echo "ROOT=$ROOT"
+pwd
 
 # Optional argument $1 is the group.
 GROUPARG=$1
@@ -30,24 +28,23 @@ set -e
 
 ## Build the Checker Framework
 echo "CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
-export CHECKERFRAMEWORK=${CHECKERFRAMEWORK:-$ROOT/checker-framework}
+export CHECKERFRAMEWORK=${CHECKERFRAMEWORK:-../checker-framework}
 if [ -d $CHECKERFRAMEWORK ] ; then
   git -C $CHECKERFRAMEWORK pull
 else
-  (cd $CHECKERFRAMEWORK/.. && git clone https://github.com/typetools/checker-framework.git) || (cd $ROOT && git clone https://github.com/typetools/checker-framework.git)
+  (cd $CHECKERFRAMEWORK/.. && git clone https://github.com/typetools/checker-framework.git) || (cd $CHECKERFRAMEWORK/.. && git clone https://github.com/typetools/checker-framework.git)
 fi
 # This also builds annotation-tools and jsr308-langtools
 (cd $CHECKERFRAMEWORK && ./.travis-build-without-test.sh downloadjdk)
 echo "CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
 ls -al $CHECKERFRAMEWORK
-echo "ROOT=$ROOT"
 
 echo "PACKAGES=$PACKAGES"
 for PACKAGE in "${PACKAGES[@]}"; do
   echo "PACKAGE=$PACKAGE"
-  (cd $ROOT && git clone https://github.com/plume-lib/${PACKAGE}.git) || (cd $ROOT && git clone https://github.com/plume-lib/${PACKAGE}.git)
+  (cd .. && git clone https://github.com/plume-lib/${PACKAGE}.git) || (cd .. && git clone https://github.com/plume-lib/${PACKAGE}.git)
   echo "About to call ./gradlew --console=plain -PcfLocal assemble"
-  (cd $ROOT/${PACKAGE} && CHECKERFRAMEWORK=$CHECKERFRAMEWORK ./gradlew --console=plain -PcfLocal assemble)
+  (cd ../${PACKAGE} && CHECKERFRAMEWORK=$CHECKERFRAMEWORK ./gradlew --console=plain -PcfLocal assemble)
 done
 
 echo "Exiting plume-lib-typecheck/.travis-build.sh"
