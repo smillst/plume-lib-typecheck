@@ -1,5 +1,6 @@
 #!/bin/bash
 ROOT=$TRAVIS_BUILD_DIR/..
+echo "ROOT=$ROOT"
 
 # Optional argument $1 is the group.
 export GROUPARG=$1
@@ -34,6 +35,7 @@ fi
 (cd $CHECKERFRAMEWORK && ./.travis-build-without-test.sh downloadjdk)
 echo "CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
 ls -al $CHECKERFRAMEWORK
+echo "ROOT=$ROOT"
 
 echo "PACKAGES=$PACKAGES"
 for PACKAGE in "${PACKAGES[@]}"; do
