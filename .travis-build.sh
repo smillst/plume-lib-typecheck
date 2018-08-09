@@ -39,5 +39,6 @@ echo "PACKAGES=$PACKAGES"
 for PACKAGE in "${PACKAGES[@]}"; do
   echo "PACKAGE=$PACKAGE"
   (cd $ROOT && git clone https://github.com/plume-lib/${PACKAGE}.git) || (cd $ROOT && git clone https://github.com/plume-lib/${PACKAGE}.git)
-  (cd $ROOT/${PACKAGE} && ./gradlew --console=plain -PcfLocal assemble)
+  echo "About to call ./gradlew --console=plain -PcfLocal assemble"
+  (cd $ROOT/${PACKAGE} && CHECKERFRAMEWORK=$CHECKERFRAMEWORK ./gradlew --console=plain -PcfLocal assemble)
 done
