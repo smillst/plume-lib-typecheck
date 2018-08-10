@@ -27,12 +27,14 @@ echo "PACKAGES=$PACKAGES"
 set -e
 
 ## Build the Checker Framework
-echo "CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
+echo "initial CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
 export CHECKERFRAMEWORK=${CHECKERFRAMEWORK:-../checker-framework}
+echo "CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
 if [ -d $CHECKERFRAMEWORK ] ; then
   git -C $CHECKERFRAMEWORK pull
 else
-  (cd $CHECKERFRAMEWORK/.. && git clone https://github.com/typetools/checker-framework.git) || (cd $CHECKERFRAMEWORK/.. && git clone https://github.com/typetools/checker-framework.git)
+  JSR308=`readlink -m $CHECKERFRAMEWORK/..`
+  (cd $JSR308 && git clone https://github.com/typetools/checker-framework.git) || (cd $JSR308 && git clone https://github.com/typetools/checker-framework.git)
 fi
 # This also builds annotation-tools and jsr308-langtools
 (cd $CHECKERFRAMEWORK && ./.travis-build-without-test.sh downloadjdk)
