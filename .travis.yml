@@ -24,6 +24,7 @@ env:
     - GROUP=options
     - GROUP=plume-util
     - GROUP=require-javadoc
+    - GROUP=signature-util
 
 jdk:
   - oraclejdk8
