@@ -1,1 +1,3 @@
 This is a dummy project to make Travis run tests to type-check plume-lib.
+It builds the latest Checker Framework from its source code repository,
+rather than using a released version.
