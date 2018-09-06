@@ -32,7 +32,8 @@ echo "initial CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
 export CHECKERFRAMEWORK=${CHECKERFRAMEWORK:-../checker-framework}
 echo "CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
 if [ -d $CHECKERFRAMEWORK ] ; then
-  git -C $CHECKERFRAMEWORK pull
+  # Fails if not currently on a branch
+  git -C $CHECKERFRAMEWORK pull || true
 else
   JSR308=`readlink -m $CHECKERFRAMEWORK/..`
   (cd $JSR308 && git clone https://github.com/typetools/checker-framework.git) || (cd $JSR308 && git clone https://github.com/typetools/checker-framework.git)
