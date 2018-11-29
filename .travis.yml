@@ -2,8 +2,6 @@ language: java
 
 script: ./.travis-build.sh $GROUP
 
-sudo: false
-
 ## When this is enabled, the require-javadoc job fails.  I don't know why.
 # # Enable Gradle and Maven caching
 # before_cache:
