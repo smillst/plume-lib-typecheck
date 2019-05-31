@@ -29,7 +29,7 @@ set -e
 
 ## Build the Checker Framework
 echo "initial CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
-export CHECKERFRAMEWORK=${CHECKERFRAMEWORK:-../checker-framework}
+export CHECKERFRAMEWORK=${CHECKERFRAMEWORK:-`pwd`/../checker-framework}
 echo "CHECKERFRAMEWORK=$CHECKERFRAMEWORK"
 if [ -d $CHECKERFRAMEWORK ] ; then
   # Fails if not currently on a branch
